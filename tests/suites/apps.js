@@ -1,12 +1,12 @@
 this.apps =  {
 
   setUp: function(cb) {
-    this.Snap = window.Snap;
+    this.sandbox = window.sandbox;
     return cb();
   },
 
   getAppsList: function(test) {
-    this.Snap.apps.getAppsList(function(err, apps) {
+    this.sandbox.apps.getAppsList(function(err, apps) {
       test.ifError(err);
       test.ok(
         apps.indexOf('tests') !== -1,
@@ -17,7 +17,7 @@ this.apps =  {
   },
 
   getAppManifest: function(test) {
-    this.Snap.apps.getAppManifest('tests', function(err, manifest) {
+    this.sandbox.apps.getAppManifest('tests', function(err, manifest) {
       test.ifError(err);
       test.ok(
         manifest,

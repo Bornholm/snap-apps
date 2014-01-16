@@ -1,8 +1,6 @@
-(function() {
+Snap.ready(function(err, sandbox) {
 
-  window.startApp = function(snap) {
-
-    snap.system.getServerExternalURL(function(err, urls) {
+    sandbox.system.getServerExternalURL(function(err, urls) {
 
       if(err) {
         // TODO handle error
@@ -19,9 +17,7 @@
           colorLight : "#ffffff",
           correctLevel : QRCode.CorrectLevel.H
       });
-
+      
     });
 
-  }
-
-}())
+  });
