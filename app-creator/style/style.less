@@ -1,0 +1,46 @@
+
+html, body, #container {
+	height: 100%;
+}
+
+#widgets {
+
+  overflow-y: auto;
+
+	h2 {
+    margin: 2px 0px;
+	}
+
+  ul.widgets-list {
+
+    @itemHeight: 100px;
+
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    display: block;
+
+    li {
+
+      display: block;
+      height: @itemHeight;
+
+      span.widget-title {
+        display: block;
+        line-height: @itemHeight;
+        text-align: center;
+        text-transform: uppercase;
+        font-weight: bold;
+      }
+    }
+
+  }
+}
+
+#workspace {
+  background-color: #ccc;
+}
+
+#options {
+  background-color: #666;
+}

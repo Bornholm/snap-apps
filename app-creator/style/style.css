@@ -1,0 +1,34 @@
+html,
+body,
+#container {
+  height: 100%;
+}
+#widgets {
+  overflow-y: auto;
+}
+#widgets h2 {
+  margin: 2px 0px;
+}
+#widgets ul.widgets-list {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  display: block;
+}
+#widgets ul.widgets-list li {
+  display: block;
+  height: 100px;
+}
+#widgets ul.widgets-list li span.widget-title {
+  display: block;
+  line-height: 100px;
+  text-align: center;
+  text-transform: uppercase;
+  font-weight: bold;
+}
+#workspace {
+  background-color: #ccc;
+}
+#options {
+  background-color: #666;
+}

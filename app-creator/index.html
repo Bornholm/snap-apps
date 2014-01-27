@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <link rel="stylesheet" type="text/css" href="bower_components/pure/pure-min.css">
+    <link rel="stylesheet" type="text/css" href="style/style.css">
+  </head>
+  <body>
+    <div id="container" class="pure-g-r">
+      <div id="menu" class="pure-u-1-6" ng-controller="MenuCtrl">
+        <div class="pure-r">
+          <button class="pure-button pure-u-1" ng-click="openProject()">New App</button>
+        </div>
+      </div>
+      <div id="workspace" class="pure-u-3-4" ng-controller="WorkspaceCtrl">
+        <widget ng-repeat="w in workspaceWidgets" widget-options="w.options" widget-type="w.type"></widget>
+      </div>
+      <div id="widgets" class="pure-u-1-12" ng-controller="WidgetsListCtrl">
+        <ul class="widgets-list">
+          <li ng-repeat="w in availableWidgets" ng-style="{'background-image': 'url(' + getThumbnailURL(w.type) + ')'}">
+            <span class="widget-title">{{w.type}}</span>
+          </li>
+        </ul>
+      </div>
+    </div>
+    <!-- Libs -->
+    <script defer type="text/javascript" src="snap.js"></script>
+    <script defer type="text/javascript" src="bower_components/angular/angular.min.js"></script>
+    <!-- Main module -->
+    <script defer type="text/javascript" src="scripts/app-creator.js"></script>
+    <!-- Services -->
+    <script defer type="text/javascript" src="scripts/services/file.js"></script>
+    <!-- Directives -->
+    <script defer type="text/javascript" src="scripts/directives/widget.js"></script>
+    <!-- Controllers -->
+    <script defer type="text/javascript" src="scripts/controllers/menu.js"></script>
+    <script defer type="text/javascript" src="scripts/controllers/widgets-list.js"></script>
+    <script defer type="text/javascript" src="scripts/controllers/workspace.js"></script>
+    <!-- Bootstrap app -->
+    <script defer type="text/javascript" src="scripts/bootstrap.js"></script>
+  </body>
+</html>
