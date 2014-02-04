@@ -9,16 +9,20 @@
         .fadeOut()
         .html(marked(markdown))
         .fadeIn();
+
     });
   }
   
   $("#content").on('click', 'a', function(evt) {
     evt.preventDefault();
-    var $link = $(this);
     var mdFile = $(this).attr('href');
-    loadMarkdown(mdFile).fail(function() {
-      $link.css('color', 'red');
-    });
+    window.location.hash = "#/" + mdFile;
+  });
+
+  $(window).on('hashchange', function(){
+    var hash = window.location.hash;
+    var mdFile = hash.slice(1);
+    loadMarkdown(mdFile ? mdFile : 'index.md');
   });
 
   loadMarkdown('index.md');
