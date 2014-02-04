@@ -49,8 +49,9 @@
               var iconURL = '/apps/' + appName + '/' + manifest.icons[''+max];
               return cb(null, iconURL);
             }
+          } else {
+            return cb(null, DEFAULT_ICON);
           }
-          return cb(null, DEFAULT_ICON);
         });
       }
 

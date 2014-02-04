@@ -1,40 +1,15 @@
 body {
   font-family: 'Droid Sans', sans-serif;
   color: #333;
-  /* Inspired by http://davidwalsh.name/background-animation-css */
-  background-image: url('../images/cloud-front.png'), url('../images/cloud-back.png');
-  background-position: 0 100%, 0 100%;
-  background-repeat: repeat-x, repeat-x;
-  background-color: #E1EFF3;
-  -webkit-animation: cloudsAnimation 60s linear infinite;
-  -moz-animation: cloudsAnimation 60s linear infinite;
-  animation: cloudsAnimation 60s linear infinite;
 }
-
-@-webkit-keyframes cloudsAnimation {
-  from { background-position: 0px 100%, 400px 100%; }
-  to { background-position: 800px 100%, 0px 100%; }
-}
-
-@-moz-keyframes cloudsAnimation {
-  from { background-position: 0px 100%, 400px 100%; }
-  to { background-position: 800px 100%, 0px 100%; }
-}
-
-@keyframes cloudsAnimation {
-  from { background-position: 0px 100%, 400px 100%; }
-  to { background-position: 800px 100%, 0px 100%; }
-}
-
 
 .panel {
-
   display: none;
-  -moz-box-sizing: border-box;
   -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  -ms-box-sizing: border-box;
   box-sizing: border-box;
   padding: 60px;
-
   -webkit-flex-direction: row;
   -moz-flex-direction: row;
   flex-direction: row;
@@ -47,9 +22,7 @@ body {
   -webkit-align-items: flex-start;
   -moz-align-items: flex-start;
   align-items: flex-start;
-
   height: 100%;
-
 }
 
 .panel.visible {
@@ -72,11 +45,13 @@ body {
   width: 48px;
   margin-top: 5px;
   font-weight: bold;
-  text-shadow: 1px 1px 0px #ffffff;
+  text-shadow: 1px 1px 0px rgba(255, 255, 255, 0.6);
   filter: dropshadow(color=#ffffff, offx=1, offy=1);
   text-transform: capitalize;
   white-space: nowrap;
   overflow: hidden;
+  -o-text-overflow: ellipsis;
+  -ms-text-overflow: ellipsis;
   text-overflow: ellipsis;
 }
 
@@ -86,6 +61,8 @@ body {
   border-radius: 10px;
   -webkit-box-shadow: 0px 0px 8px 2px rgba(33, 33, 33, 0.5);
   box-shadow: 0px 0px 8px 2px rgba(33, 33, 33, 0.5);
+  -webkit-background-size: contain;
+  -moz-background-size: contain;
   background-size: contain;
   background-repeat: no-repeat;
   background-position: center center;
@@ -100,39 +77,46 @@ body {
 }
 
 /* Colors */
-
 .app > .icon.rose {
   background-color: #ff4d74;
+  -webkit-box-shadow: 0 3px #e60032;
   box-shadow: 0 3px #e60032;
 }
 
 .app:hover > .icon.rose {
+  -webkit-box-shadow: 0 2px #e60032;
   box-shadow: 0 2px #e60032;
 }
 
 .app > .icon.canary {
   background-color: #fee830;
+  -webkit-box-shadow: 0 3px #c7b201;
   box-shadow: 0 3px #c7b201;
 }
 
 .app:hover > .icon.canary {
+  -webkit-box-shadow: 0 2px #c7b201;
   box-shadow: 0 2px #c7b201;
 }
 
 .app > .icon.lime {
   background-color: #86cd4b;
+  -webkit-box-shadow: 0 3px #548b27;
   box-shadow: 0 3px #548b27;
 }
 
 .app:hover > .icon.lime {
+  -webkit-box-shadow: 0 2px #548b27;
   box-shadow: 0 2px #548b27;
 }
 
 .app > .icon.blue {
   background-color: #039ee0;
+  -webkit-box-shadow: 0 3px #02577b;
   box-shadow: 0 3px #02577b;
 }
 
 .app:hover > .icon.blue {
+  -webkit-box-shadow: 0 2px #02577b;
   box-shadow: 0 2px #02577b;
 }
