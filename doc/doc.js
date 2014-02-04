@@ -14,14 +14,11 @@
   
   $("#content").on('click', 'a', function(evt) {
     evt.preventDefault();
+    var $link = $(this);
     var mdFile = $(this).attr('href');
-    window.location.hash = "#/" + mdFile;
-  });
-
-  $(window).on('hashchange', function(){
-    var hash = window.location.hash;
-    var mdFile = hash.slice(1);
-    loadMarkdown(mdFile ? mdFile : 'index.md');
+    loadMarkdown(mdFile).fail(function() {
+      $link.css('color', 'red');
+    });
   });
 
   loadMarkdown('index.md');

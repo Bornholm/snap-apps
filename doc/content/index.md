@@ -9,6 +9,6 @@
 ### SNAP
 - [Créer un plugin](tutoriels/creer-plugin.md)
 
-### Concepts
+## Concepts
 - [Le fichier `manifest.json`](concepts/app-manifest.md)
 - [Modèle de cloisonnement](concepts/sandboxing.md)
