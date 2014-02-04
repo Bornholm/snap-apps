@@ -9,7 +9,6 @@
         .fadeOut()
         .html(marked(markdown))
         .fadeIn();
-
     });
   }
   
