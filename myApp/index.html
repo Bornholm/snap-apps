@@ -1,0 +1,28 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>MyApp</title>
+    <script src='snap.js'></script>
+  </head>
+  <body>
+    <script src="js/lib/angular.min.js"></script>
+    <script src='js/app.js'></script>
+    <div ng-app="myApp">
+
+        <div ng-controller="IdentityCtrl">
+            <label>First Name</label>
+            <input type='text' ng-model='data.firstname'/>
+            <label>Last Name</label>
+            <input type='text' ng-model='data.lastname'/>
+            <label>Your Age</label>
+            <input type='text' ng-model='data.age'/>
+            {{data.firstname}}
+            {{data.lastname}}
+            {{data.age}}
+        </div>
+
+    </div>
+  </body>
+</html>
