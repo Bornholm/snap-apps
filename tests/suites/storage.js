@@ -82,7 +82,7 @@ this.storage =  {
   separedStorageSpaces: function(test) {
 
     var key = 'test-put-key';
-    var value = {hello: 'world'};
+    var value = {hello: 'world' + Date.now()};
 
     this.sandbox.appStorage.put(key, value, function(err) {
 
