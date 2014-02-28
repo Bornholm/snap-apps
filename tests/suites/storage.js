@@ -92,7 +92,7 @@ this.storage =  {
 
         test.ifError(err);
         test.ok(
-          JSON.stringify(retValue) == JSON.stringify(value),
+          JSON.stringify(retValue) !== JSON.stringify(value),
           'Returned value should not equal stored one !'
         );
         
