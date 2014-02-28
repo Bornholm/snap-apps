@@ -12,15 +12,13 @@
     <div ng-app="myApp">
 
         <div ng-controller="IdentityCtrl">
-            <label>First Name</label>
-            <input type='text' ng-model='data.firstname'/>
-            <label>Last Name</label>
-            <input type='text' ng-model='data.lastname'/>
-            <label>Your Age</label>
-            <input type='text' ng-model='data.age'/>
-            {{data.firstname}}
-            {{data.lastname}}
-            {{data.age}}
+            <label>First Name :</label><br/>
+            <input type='text' ng-model="data.firstname" /><br/>
+            <label>Last Name :</label><br/>
+            <input type='text' ng-model='data.lastname' /><br/>
+            <label>Your Age :</label><br/>
+            <input type='text' ng-model='data.age' /><br/>
+            <div>{{data.firstname}} {{data.lastname}} {{data.age}}</div>
         </div>
 
     </div>

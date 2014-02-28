@@ -1,9 +1,7 @@
 var myApp = angular.module('myApp', []);
 
 myApp.factory('Data', function () {
-    return { firstname: "Anonymous",
-             lastname: "Noname",
-             age: '10'};
+    return {};
 });
 
 function isNormalInteger(str) {
@@ -13,9 +11,11 @@ function isNormalInteger(str) {
 
 // Controllers 
 function IdentityCtrl($scope) {
+    $scope.data = {};
     if ( isNormalInteger($scope.data.age) ) {
-        $scope.data.age += 10
+        $scope.data.age + 10
     }
+    Data = $scope.data 
 };
 
 // Handler Snap
