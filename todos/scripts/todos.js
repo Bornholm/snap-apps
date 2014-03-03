@@ -7,19 +7,26 @@
     $scope.sharedTodos = [];
     $scope.todos = [];
 
-    Snap.appStorage.get('todos', function(err, todos) {
-      console.log('get', todos)
+    function updateTodos(isShared, err, todos) {
       $scope.$apply(function() {
-        $scope.todos = todos || [];
+        todos = (todos || []).map(function(todo) {
+          return todo.value;
+        });
+        $scope['todos' + (isShared ? 'Shared': '')] = todos;
       });
-    });
+    }
 
-    Snap.appStorage.getShared('todos', function(err, todos) {
-      console.log('getShared', todos)
-      $scope.$apply(function() {
-        $scope.sharedTodos = todos || [];
-      });
-    });
+    Snap.appStorage.find(
+      {}, 
+      {start: 'todo-', end: 'todo.'},
+      updateTodos.bind(null, false)
+    );
+
+    Snap.appStorage.findShared(
+      {}, 
+      {start: 'todo-', end: 'todo.'},
+      updateTodos.bind(null, true)
+    );
 
     $scope.newTodo = '';
 
@@ -32,6 +39,7 @@
 
     $scope.createNewTodo = function(text, isShared) {
       var todo = {
+        key: 'todo-'+Date.now(),
         text: text,
         isShared: isShared || false,
         date: new Date(),
@@ -39,14 +47,8 @@
       };
       var todos = isShared ? $scope.sharedTodos : $scope.todos;
       todos.push(todo);
-      var cleanedTodos = todos.map(cleanUp);
-      Snap.appStorage['put' + (isShared ? 'Shared' : '')]('todos', cleanedTodos);
+      Snap.appStorage['put' + (isShared ? 'Shared' : '')](todo.key, todo);
     };
-
-    function cleanUp(todo) {
-      delete todo.$$hashKey;
-      return todo;
-    }
 
   }]);
 

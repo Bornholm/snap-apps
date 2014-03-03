@@ -34,7 +34,7 @@
               </tr>
             </thead>
             <tbody>
-              <tr ng-repeat="todo in todos.concat(sharedTodos)" ng-switch="todo.isShared" ng-class="{'done': todo.done}">
+              <tr ng-repeat="todo in todos.concat(sharedTodos) track by todo.key" ng-switch="todo.isShared" ng-class="{'done': todo.done}">
                 <td ng-bind="todo.text"></td>
                 <td ng-bind="todo.date"></td>
                 <td ng-switch-when="true">Oui</td>
