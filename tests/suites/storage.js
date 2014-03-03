@@ -19,7 +19,7 @@ this.storage =  {
 
     simplePut: function(test) {
 
-      var key = 'test-put-key';
+      var key = 'fake-key-'+Date.now();
       var value = {hello: 'world'};
 
       this.sandbox.appStorage.put(key, value, function(err) {
@@ -53,7 +53,7 @@ this.storage =  {
 
     simplePutShared: function(test) {
 
-      var key = 'test-put-key';
+      var key = 'fake-key'+Date.now();
       var value = {hello: 'world'};
 
       this.sandbox.appStorage.putShared(key, value, function(err) {
@@ -76,31 +76,70 @@ this.storage =  {
 
     },
 
-  },
+    // Put data into user's space, try to get it into shared space
+    separedStorageSpaces: function(test) {
 
-  // Put data into user's space, try to get it into shared space
-  separedStorageSpaces: function(test) {
+      var key = 'fake-key-'+Date.now();
+      var value = {hello: 'world' + Date.now()};
 
+      this.sandbox.appStorage.put(key, value, function(err) {
+
+<<<<<<< HEAD
     var key = 'test-put-key';
     var value = {hello: 'world'};
-
-    this.sandbox.appStorage.put(key, value, function(err) {
-
-      test.ifError(err);
-
-      this.sandbox.appStorage.getShared(key, function(err, retValue) {
-
+=======
         test.ifError(err);
-        test.ok(
-          JSON.stringify(retValue) == JSON.stringify(value),
-          'Returned value should not equal stored one !'
-        );
-        
-        test.done();
+>>>>>>> fc30f59... Add batch/find tests to appStorage service
+
+        this.sandbox.appStorage.getShared(key, function(err, retValue) {
+
+          test.ifError(err);
+          test.ok(
+            JSON.stringify(retValue) !== JSON.stringify(value),
+            'Returned value should not equal stored one !'
+          );
+          
+          test.done();
+
+        });
 
       });
+    },
 
-    });
+
+    batchThenFind: function(test) {
+
+      var testBatch = [];
+      var count = 100;
+      while(count--) {
+        testBatch.push({
+          type: 'put',
+          key: 'batch-test-' + count,
+          value: {
+            count: count
+          }
+        });
+      }
+
+      this.sandbox.appStorage.batch(testBatch, function(err) {
+
+        test.ifError(err);
+
+        this.sandbox.appStorage.find(
+          {count: {$lt: 50}},
+          {start: 'batch-test-', end: 'batch-test;'},
+          function(err, results) {
+            test.ifError(err);
+            test.ok(results.length === 50, 'Find should return 50 results !')
+            test.done();
+          }
+        );
+        
+      });
+
+    }
+
+
   }
 
 };
