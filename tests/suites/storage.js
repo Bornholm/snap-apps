@@ -84,12 +84,7 @@ this.storage =  {
 
       this.sandbox.appStorage.put(key, value, function(err) {
 
-<<<<<<< HEAD
-    var key = 'test-put-key';
-    var value = {hello: 'world'};
-=======
         test.ifError(err);
->>>>>>> fc30f59... Add batch/find tests to appStorage service
 
         this.sandbox.appStorage.getShared(key, function(err, retValue) {
 
