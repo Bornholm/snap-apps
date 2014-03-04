@@ -17,7 +17,7 @@ this.storage =  {
       
     },
 
-    simplePut: function(test) {
+    getPutDel: function(test) {
 
       var key = 'fake-key-'+Date.now();
       var value = {hello: 'world'};
@@ -33,8 +33,18 @@ this.storage =  {
             JSON.stringify(retValue) == JSON.stringify(value),
             'Returned value should equal stored one !'
           );
-          
-          test.done();
+
+          this.sandbox.appStorage.del(key, function(err) {
+
+            test.ifError(err);
+
+            this.sandbox.appStorage.get(key, function(err, retValue) {
+              test.ifError(err);
+              test.ok(!retValue, 'Key should be deleted !');
+              test.done();
+            });
+            
+          });
 
         });
 
@@ -101,7 +111,6 @@ this.storage =  {
       });
     },
 
-
     batchThenFind: function(test) {
 
       var testBatch = [];
@@ -117,7 +126,6 @@ this.storage =  {
       }
 
       this.sandbox.appStorage.batch(testBatch, function(err) {
-
         test.ifError(err);
 
         this.sandbox.appStorage.find(
