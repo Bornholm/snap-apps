@@ -1,0 +1,22 @@
+
+td.done-col {
+  width: 65px;
+  text-align: center;
+}
+
+td.due-col {
+  width: 80px;
+}
+
+tr.done {
+  text-decoration: line-through;
+  opacity: 0.5;
+}
+
+tr.overdue {
+  color: red;
+}
+
+input[type="date"] {
+  line-height: 20px;
+}

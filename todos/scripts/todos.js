@@ -1,11 +1,28 @@
 (function() {
 
+  moment.lang('fr');
+
   var Todos = angular.module('Todos', []);
 
   Todos.controller('AppCtrl', ['$scope', 'Snap', function($scope, Snap) {
 
-    $scope.sharedTodos = [];
+    $scope.predicate = ['done', sortDate];
+    $scope.reverse = false;
+    $scope.todosShared = [];
     $scope.todos = [];
+    $scope.isShared = false;
+    $scope.newTodo = '';
+
+    var today = moment().startOf('day');
+
+    function sortDate(todo) {
+      if(!todo.dueDate) {
+        return Number.MAX_VALUE;
+      }
+      var dueDate = moment(todo.dueDate).startOf('day');
+      var diff = today.diff(dueDate, 'days');
+      return -diff;
+    }
 
     function updateTodos(isShared, err, todos) {
       $scope.$apply(function() {
@@ -28,11 +45,17 @@
       updateTodos.bind(null, true)
     );
 
-    $scope.newTodo = '';
+    $scope.isOverdue = function(todo) {
+      return !todo.done && moment(todo.dueDate).isBefore(today, 'day');
+    };
 
     $scope.newTodoHandler = function($event) {
       if($event.keyCode === 13) { // ENTER Key
-        $scope.createNewTodo($scope.newTodo);
+        var todo = $scope.createNewTodo($scope.newTodo, $scope.isShared);
+        var todos = $scope.isShared ? $scope.sharedTodos : $scope.todos;
+        todos.push(todo);
+        $scope.saveTodo(todo);
+        $scope.isShared = false;
         $scope.newTodo = '';
       }
     };
@@ -42,12 +65,24 @@
         key: 'todo-'+Date.now(),
         text: text,
         isShared: isShared || false,
-        date: new Date(),
+        creationDate: new Date(),
+        doneDate: null,
+        dueDate: null,
         done: false
       };
-      var todos = isShared ? $scope.sharedTodos : $scope.todos;
-      todos.push(todo);
-      Snap.appStorage['put' + (isShared ? 'Shared' : '')](todo.key, todo);
+      return todo;
+    };
+
+    $scope.updateDoneDate = function(todo) {
+      todo.doneDate = todo.done ? new Date() : null;
+    };
+
+    $scope.saveTodo = function(todo) {
+      Snap.appStorage['put' + (todo.isShared ? 'Shared' : '')](todo.key, todo);
+    };
+
+    $scope.deleteTodo = function(todo) {
+      Snap.appStorage['del' + (todo.isShared ? 'Shared' : '')](todo.key);
     };
 
   }]);
