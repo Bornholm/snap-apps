@@ -2,12 +2,22 @@
 
   var mdRoot = 'content';
 
+  var markedOpts = {
+    highlight : function(code, lang) {
+      if(lang) {
+        return hljs.highlight(lang, code).value;
+      } else {
+        return hljs.highlightAuto(code).value;
+      }
+    }
+  };
+
   function loadMarkdown(mdFile) {
     return $.get(mdRoot + '/' + mdFile).then(function(markdown) {
       $("#content")
         .hide()
         .fadeOut()
-        .html(marked(markdown))
+        .html(marked(markdown, markedOpts))
         .fadeIn();
     });
   }
