@@ -7,12 +7,9 @@ Cette page sera la page d'accueil de l'application.
 **Exemple d'arborescence**
 ```
 snap
-  |
   |-> apps
-        |
-        |-> mon_application
-              |
-              |-> index.html
+    |-> mon_application
+      |-> index.html
 ```
 
 **index.html**
