@@ -37,10 +37,10 @@ Retrouve une valeur associée à une clé dans la base de données
 
 ** Arguments **
 
-  - `key` __String__  _La clé associée à la valeur à retrouver_
-  - `callback(err, value)` __Function__ _La fonction de rappel qui sera invoquée lors de la réponse du service_
-      - `err`  __Object__  _Si différent de `null`, une erreur s'est produite lors de l'appel au service_
-      - `value`  __*__  _La valeur associée à la clé dans la base de données_
+  - `key` __String__  La clé associée à la valeur à retrouver
+  - `callback(err, value)` __Function__ La fonction de rappel qui sera invoquée lors de la réponse du service
+      - `err`  __Object__  Si différent de `null`, une erreur s'est produite lors de l'appel au service
+      - `value`  __*__  La valeur associée à la clé dans la base de données
 
 ** Exemple **
 
@@ -59,10 +59,10 @@ Stocke une valeur associée à une clé dans la base de données
 
 ** Arguments **
 
-  - `key` __String__  _La clé associée à la valeur_
-  - `value` __Array | Object | String | Number__  _La valeur à stocker_
-  - `callback(err)` __Function__ _La fonction de rappel qui sera invoquée lors de la réponse du service_
-      - `err`  __Object__  _Si différent de `null`, une erreur s'est produite lors de l'appel au service_
+  - `key` __String__  La clé associée à la valeur
+  - `value` __Array | Object | String | Number__  La valeur à stocker
+  - `callback(err)` __Function__ La fonction de rappel qui sera invoquée lors de la réponse du service
+      - `err`  __Object__  Si différent de `null`, une erreur s'est produite lors de l'appel au service
 
 ** Exemple **
 
@@ -86,8 +86,8 @@ Supprime une valeur associée à une clé dans la base de données
 ** Arguments **
 
   - `key` __String__  _La clé associée à la valeur_
-  - `callback(err)` __Function__ _La fonction de rappel qui sera invoquée lors de la réponse du service_
-      - `err`  __Object__  _Si différent de `null`, une erreur s'est produite lors de l'appel au service_
+  - `callback(err)` __Function__ La fonction de rappel qui sera invoquée lors de la réponse du service
+      - `err`  __Object__  Si différent de `null`, une erreur s'est produite lors de l'appel au service
 
 ** Exemple **
 
@@ -103,13 +103,13 @@ services.appStorage.del('my-key', function(err) {
 
 ### appStorage.batch(batch, callback)
 
-Effectue une série d'opérations put/del sur la base de donnée
+Effectue une série d'opérations put/del sur la base de données
 
 ** Arguments **
 
-  - `batch` __Array[Object]__  _Tableau des opérations à effectuer, voir ci dessous_
-  - `callback(err)` __Function__ _La fonction de rappel qui sera invoquée lors de la réponse du service_
-      - `err`  __Object__  _Si différent de `null`, une erreur s'est produite lors de l'appel au service_
+  - `batch` __Array[Object]__  Tableau des opérations à effectuer, voir ci dessous
+  - `callback(err)` __Function__ La fonction de rappel qui sera invoquée lors de la réponse du service
+      - `err`  __Object__  Si différent de `null`, une erreur s'est produite lors de l'appel au service
 
 ** Les opérations **
 
@@ -117,7 +117,7 @@ Une opération est un objet avec les propriétés suivantes
 
   - `type` __'del' | 'put'__ _Type d'opération à effectuer_
   - `key` __String__ _La clé sur laquelle effectuer l'opération_
-  - `value` __*__ Dans le cas d'une opération 'put', la valeur à affecter à la clé
+  - `value` __Object | Number | String | Array__ Dans le cas d'une opération 'put', la valeur à affecter à la clé
 
 ** Exemple **
 
@@ -137,4 +137,34 @@ services.appStorage.batch(batch, function(err) {
 });
 ```
 
-### appStorage.find(query, opts, callback)
+### appStorage.find(filter, options, callback)
+
+Effectue une recherche sur la base de données
+
+** Arguments **
+
+  - `filter` __Object__ Filtre au format [sift.js](https://github.com/crcn/sift.js)
+  - `options` __Object__ Options à passer à la méthode [levelup.createReadStream()](https://github.com/rvagg/node-levelup#dbcreatereadstreamoptions)
+  - `callback(err, results)` __Function__ La fonction de rappel qui sera invoquée lors de la réponse du service
+      - `err`  __Object__  Si différent de `null`, une erreur s'est produite lors de l'appel au service
+      - `results`  __Array[Object]__  Résultat de la requête, chaque entrée ayant les propriétés `key` et `value`
+
+** Exemple **
+```javascript
+var filter = {
+  amount: { $gte: 5 } // On veut récupérer toutes les entrées comportant une propriété amount >= 5
+};
+
+var options = {
+  start: 'stock-' // On veut commencer la recherche sur les entrées ayant une clé commençant par 'stock-'
+  end: 'stock.' // On arrête la recherche lorsque la clé ne commence plus par 'stock-' -> charCode('.') = charCode('-') + 1
+};
+
+services.appStorage.find(filter, options, function(err, results) {
+  if(err) {
+    throw err; // Une erreur s'est produite
+  } else {
+    console.log(results);
+  }
+});
+```
