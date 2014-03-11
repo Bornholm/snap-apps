@@ -1,0 +1,15 @@
+<html lang="en" ng-app>
+    <body>
+        <script src='snap.js'></script>
+        <script src="lib/angular/angular.min.js"></script>
+        <script src="js/controllers.js"></script>
+        <script>
+            Snap.ready(function(err, sandbox){
+                        console.log(sandbox)
+                        sandbox.dir.ls('./img', function(err, files) {
+                            console.log(arguments)
+                            })
+                    })
+        </script>
+    </body>
+</html>
