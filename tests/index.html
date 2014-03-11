@@ -8,6 +8,7 @@
     <script src="suites/apps.js"></script>
     <script src="suites/users.js"></script>
     <script src="suites/system.js"></script>
+    <script src="suites/storage.js"></script>
   </head>
   <body>
     <h1 id="nodeunit-header">Snap Services Tests</h1>
@@ -17,7 +18,8 @@
         nodeunit.run({
           'Apps': apps,
           'System': system,
-          'Users': users
+          'Users': users,
+          'Storage': storage
         });
       });
     </script>

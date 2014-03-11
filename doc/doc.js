@@ -1,26 +1,33 @@
 (function() {
 
-  var mdRoot = 'content';
+  var MARKDOWN_ROOT = 'content';
+  var DEFAULT_PAGE = 'index.md';
+
+  var markedOpts = {
+    highlight : function(code, lang) {
+      if(lang) {
+        return hljs.highlight(lang, code).value;
+      } else {
+        return hljs.highlightAuto(code).value;
+      }
+    }
+  };
 
   function loadMarkdown(mdFile) {
-    return $.get(mdRoot + '/' + mdFile).then(function(markdown) {
+    return $.get(MARKDOWN_ROOT + '/' + mdFile).then(function(markdown) {
       $("#content")
         .hide()
         .fadeOut()
-        .html(marked(markdown))
+        .html(marked(markdown, markedOpts))
         .fadeIn();
     });
   }
-  
-  $("#content").on('click', 'a', function(evt) {
-    evt.preventDefault();
-    var $link = $(this);
-    var mdFile = $(this).attr('href');
-    loadMarkdown(mdFile).fail(function() {
-      $link.css('color', 'red');
-    });
-  });
 
-  loadMarkdown('index.md');
+  window.onhashchange = function() {
+    var mdFile = window.location.hash.slice(1) || DEFAULT_PAGE;
+    loadMarkdown(mdFile);
+  };
+
+  loadMarkdown(DEFAULT_PAGE);
 
 }());
