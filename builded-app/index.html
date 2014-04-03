@@ -7,17 +7,20 @@
     <link rel="import" href="lib/snap-widget/snap-widget.html">
     <!-- Widgets -->
     <link rel="import" href="widgets/widget-text/widget-text.html">
+    <link rel="import" href="widgets/widget-timeline/widget-timeline.html">
   </head>
-  <body>
+  <body unresolved>
     <snap-container id="widgets-container" layout="horizontal">
       <widget-text id="widget-1"></widget-text>
+      <widget-timeline></widget-timeline>
     </snap-container>
     <script type="text/javascript">
-      (function() {
-        document.getElementById('widget-1').setAttribute('options', {
-          text: "Hello World !"
-        });
-      }());
+      window.addEventListener('WebComponentsReady', function(e) {
+        var widget = document.getElementById('widget-1');
+        widget.options = {
+          text: "##Hello World !"
+        };
+      });
     </script>
   </body>
   

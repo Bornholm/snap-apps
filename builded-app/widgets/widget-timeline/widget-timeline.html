@@ -1,0 +1,53 @@
+<!-- Timeline Lib http://almende.github.io/chap-links-library/timeline.html -->
+<!-- Timeline example http://almende.github.io/chap-links-library/js/timeline/examples/example17_json_data.html -->
+<polymer-element name="widget-timeline" attributes="options">
+  <template>
+    <link rel="stylesheet" type="text/css" href="vendor/timeline-2.6.1/timeline.css">
+    <link rel="stylesheet" type="text/css" href="vendor/timeline-2.6.1/timeline-theme.css">
+    <snap-widget>
+      <div id="edit">
+        
+      </div>
+      <div id="view">
+        <div id="timeline"></div>
+      </div>
+    </snap-widget>
+  </template>
+  <script type="text/javascript" src="vendor/timeline-2.6.1/timeline-min.js"></script>
+  <script type="text/javascript" src="vendor/timeline-2.6.1/timeline-locales.js"></script>
+  <script>
+    Polymer('widget-timeline', {
+
+      timelineData: [
+        {
+          'start': new Date(2010,7,23),
+          'content': 'Test'
+        },
+        {
+          'start': new Date(2010,7,23,23,0,0),
+          'content': 'Test1'
+        }
+      ],
+
+      timelineOpts: {
+        height: '100%',
+        width: '100%',
+        style: 'box',
+        locale: 'fr'
+      },
+
+      ready: function() {
+        this.data = {};
+        this.timeline = new links.Timeline(this.$.timeline);
+        this.redraw();
+      },
+
+      redraw: function() {
+        this.async(function() {
+          this.timeline.draw(this.timelineData, this.timelineOpts);
+        });
+      }
+
+    });
+  </script>
+</polymer-element>

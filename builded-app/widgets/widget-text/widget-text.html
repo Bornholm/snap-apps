@@ -1,26 +1,31 @@
 <polymer-element name="widget-text" attributes="options">
   <template>
+    <style>
+      :host #view {
+        overflow-y: auto;
+      }
+    </style>
     <snap-widget>
-      <div class="edit">
-        Edit Panel
+      <div id="edit">
+        <label>Content</label>
+        <textarea value="{{text}}"></textarea>
       </div>
-      <div class="view">
-        {{text}}
-      </div>
+      <div id="view"></div>
     </snap-widget>
   </template>
   <script type="text/javascript" src="vendor/marked.js"></script>
   <script>
     Polymer('widget-text', {
 
-      created: function() {
-        this.options = {};
+      text: '',
+
+      textChanged: function() {
+        this.$.view.innerHTML = marked(this.text);
       },
 
       optionsChanged: function(oldOpts, newOpts) {
-        console.log(newOpts);
-        if(newOpts) {
-          this.text = marked(newOpts.text || '');
+        if(newOpts && 'text' in newOpts) {
+          this.text = newOpts.text;
         }
       },
 

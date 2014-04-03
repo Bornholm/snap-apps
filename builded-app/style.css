@@ -3,3 +3,8 @@
   width: 100%;
   height: 100%;
 }
+
+/* Temporary, waiting for :ancestor() proper support in Polymer */
+snap-widget[view-only] > #ŧabs, [view-only] snap-widget > #tabs {
+  display: none;
+}
