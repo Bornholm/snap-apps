@@ -1,0 +1,59 @@
+<link rel="import" href="../../bower_components/polymer/polymer.html">
+<polymer-element name="snap-container" attributes="layout">
+  <template>
+    <style>
+
+      :host {
+        display: block;
+      }
+
+      :host * {
+        -moz-box-sizing: border-box;
+        -webkit-box-sizing: border-box;
+        box-sizing: border-box;
+      }
+
+      :host[layout="horizontal"] > * {
+        display: block;
+        height: 100%;
+        float: left;
+      }
+
+      :host[layout="vertical"] > * {
+        display: block;
+        width: 100%;
+      }
+
+    </style>
+    <content></content>
+  </template>
+  <script>
+    Polymer('snap-container', {
+
+      layout: 'horizontal',
+
+      ready: function() {
+        this.async(this.applyLayout);
+      },
+
+      layoutChanged: function() {
+        this.async(this.applyLayout);
+      },
+
+      applyLayout: function() {
+        var el;
+        var count = this.children.length;
+        var width = (100/count) + '%';
+        while(count--) {
+          el = this.children[count];
+          if(el.parentElement.layout === 'horizontal') {
+            el.style.width = width;
+          } else {
+            el.removeAttribute('style');
+          }
+        }
+      }
+
+    });
+  </script>
+</polymer-element>

@@ -1,0 +1,33 @@
+<polymer-element name="widget-text" attributes="options">
+  <template>
+    <snap-widget>
+      <div class="edit">
+        Edit Panel
+      </div>
+      <div class="view">
+        {{text}}
+      </div>
+    </snap-widget>
+  </template>
+  <script type="text/javascript" src="vendor/marked.js"></script>
+  <script>
+    Polymer('widget-text', {
+
+      created: function() {
+        this.options = {};
+      },
+
+      optionsChanged: function(oldOpts, newOpts) {
+        console.log(newOpts);
+        if(newOpts) {
+          this.text = marked(newOpts.text || '');
+        }
+      },
+
+      save: function() {
+
+      }
+
+    });
+  </script>
+</polymer-element>

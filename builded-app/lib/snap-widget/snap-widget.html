@@ -1,0 +1,36 @@
+<link rel="import" href="../../bower_components/polymer/polymer.html">
+<polymer-element name="snap-widget" attributes="options">
+  <template>
+    <style>
+
+      :host {
+        display: block;
+      }
+
+      :host #main {
+        display: block;
+      }
+
+      :host #edit {
+        display: none;
+      }
+      
+    </style>
+
+    <ul id="tabs">
+      <li>View</li>
+      <li>Edit</li>
+    </ul>
+
+    <content id="edit" select=".edit"></content>
+    <content id="view" select=".view"></content>
+
+  </template>
+  <script>
+    Polymer('snap-widget', {
+      created: function() {
+        this.mode = 'edit';
+      }
+    });
+  </script>
+</polymer-element>

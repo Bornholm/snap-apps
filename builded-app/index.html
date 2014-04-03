@@ -1,0 +1,24 @@
+<html>
+  <head>
+    <script src="bower_components/platform/platform.js"></script>
+    <link rel="stylesheet" type="text/css" href="style.css">
+    <!-- Lib elements -->
+    <link rel="import" href="lib/snap-container/snap-container.html">
+    <link rel="import" href="lib/snap-widget/snap-widget.html">
+    <!-- Widgets -->
+    <link rel="import" href="widgets/widget-text/widget-text.html">
+  </head>
+  <body>
+    <snap-container id="widgets-container" layout="horizontal">
+      <widget-text id="widget-1"></widget-text>
+    </snap-container>
+    <script type="text/javascript">
+      (function() {
+        document.getElementById('widget-1').setAttribute('options', {
+          text: "Hello World !"
+        });
+      }());
+    </script>
+  </body>
+  
+</html>
