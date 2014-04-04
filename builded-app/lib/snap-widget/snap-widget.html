@@ -1,75 +1,87 @@
 <link rel="import" href="../../bower_components/polymer/polymer.html">
-<polymer-element name="snap-widget" attributes="options">
+<polymer-element name="snap-widget" attributes="options name">
   <template>
     <style>
 
       :host {
         display: block;
-        height: 100%;
         width: 100%;
+        font-family: 'sans-serif';
       }
 
-      :host > #main {
-        display: block;
-      }
-
-      :host > #edit {
-        display: none;
-      }
-
-      :host > #tabs {
+      :host #tabs {
         display: block;
         margin: 0;
         padding: 0;
         list-style: none;
-        height: 25px;
+      }
+
+      :host #panels {
+        background-color: rgba(255, 255, 255, 0.3);
+        min-height: 50px;
+      }
+
+      :host .tab {
+        cursor: pointer;
+        display: inline-block;
+        padding: 0 5px;
+        background-color: #ccc;
+      }
+
+      :host .tab.selected {
+        background-color: rgba(255, 255, 255, 0.3);
       }
       
-      :host > #tabs li {
+      :host #tabs li {
         display: inline-block;
       }
 
-      :host([view-only]) > #tabs, :ancestor([view-only]) > #tabs {
+      :host([view-only]) #tabs, :ancestor([view-only]) #tabs {
         display: none;
       }
 
     </style>
 
-    <ul id="tabs">
-      <li><label>View<input type="radio" name="mode" checked="{{mode.view}}"></label></li>
-      <li><label>Edit<input type="radio" name="mode" checked="{{mode.edit}}"></label></li>
-    </ul>
+    <div id="tabs">
+      <b class="widgetName">{{name}}</b>
+      <a id="viewTab" class="tab" on-click="{{showViewPane}}">View</a><a id="editTab" class="tab" on-click="{{showEditPane}}">Edit</a>
+    </div>
 
-    <content id="editPane" select="#edit"></content>
-    <content id="viewPane" select="#view"></content>
+    <div id="panels">
+      <div id="editPane">
+        <content select=".edit"></content>
+      </div>
+      <div id="viewPane">
+        <content select=".view"></content>
+      </div>
+    </div>
 
   </template>
   <script>
     Polymer('snap-widget', {
 
-      created: function() {
-        this.mode = {
-          view: true,
-          edit: false
-        };
+      name: 'Widget',
+
+      ready: function() {
+        this.showViewPane();
       },
 
-      observe: {
-        'mode.view': 'togglePane',
-        'mode.edit': 'togglePane'
+      showEditPane: function() {
+        this.$.editPane.style.display = 'block';
+        this.$.viewPane.style.display = 'none';
+        this.$.editTab.classList.add('selected');
+        this.$.viewTab.classList.remove('selected');
+        this.fire('showEdit');
       },
 
-      togglePane: function() {
-        var editPane = this.$.editPane.getDistributedNodes()[0];
-        var viewPane = this.$.viewPane.getDistributedNodes()[0];
-        if(this.mode.view) {
-          editPane.style.display = 'none';
-          viewPane.style.display = 'block';
-        } else {
-          editPane.style.display = 'block';
-          viewPane.style.display = 'none';
-        }
+      showViewPane: function() {
+        this.$.editPane.style.display = 'none';
+        this.$.viewPane.style.display = 'block';
+        this.$.editTab.classList.remove('selected');
+        this.$.viewTab.classList.add('selected');
+        this.fire('showView');
       }
+
 
     });
   </script>

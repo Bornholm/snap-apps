@@ -1,16 +1,16 @@
 <polymer-element name="widget-text" attributes="options">
   <template>
     <style>
-      :host #view {
+      :host #textContainer {
         overflow-y: auto;
       }
     </style>
-    <snap-widget>
-      <div id="edit">
+    <snap-widget name="Text">
+      <div class="edit">
         <label>Content</label>
         <textarea value="{{text}}"></textarea>
       </div>
-      <div id="view"></div>
+      <div id="textContainer" class="view"></div>
     </snap-widget>
   </template>
   <script type="text/javascript" src="vendor/marked.js"></script>
@@ -20,7 +20,7 @@
       text: '',
 
       textChanged: function() {
-        this.$.view.innerHTML = marked(this.text);
+        this.$.textContainer.innerHTML = marked(this.text);
       },
 
       optionsChanged: function(oldOpts, newOpts) {

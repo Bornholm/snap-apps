@@ -4,11 +4,20 @@
   <template>
     <link rel="stylesheet" type="text/css" href="vendor/timeline-2.6.1/timeline.css">
     <link rel="stylesheet" type="text/css" href="vendor/timeline-2.6.1/timeline-theme.css">
-    <snap-widget>
-      <div id="edit">
-        
+    <snap-widget name="Timeline">
+      <div class="edit">
+        <button on-click="{{addEvent}}">Add event</button>
+        <ul>
+          <template repeat="{{e in events}}">
+            <li>
+              <label>Start <input type="date" value="{{e.start}}" /></label><br />
+              <label>End <input type="date" value="{{e.end}}" /></label><br />
+              <label>Content <textarea value="{{e.content}}"></textarea></label><br />
+            </li>
+          </template>
+        </ul>
       </div>
-      <div id="view">
+      <div class="view">
         <div id="timeline"></div>
       </div>
     </snap-widget>
@@ -18,33 +27,44 @@
   <script>
     Polymer('widget-timeline', {
 
-      timelineData: [
-        {
-          'start': new Date(2010,7,23),
-          'content': 'Test'
-        },
-        {
-          'start': new Date(2010,7,23,23,0,0),
-          'content': 'Test1'
-        }
-      ],
-
       timelineOpts: {
-        height: '100%',
+        height: '300px',
         width: '100%',
         style: 'box',
         locale: 'fr'
       },
 
       ready: function() {
-        this.data = {};
+        this.events = [];
         this.timeline = new links.Timeline(this.$.timeline);
         this.redraw();
+        this.addEventListener('showView', this.redraw.bind(this));
       },
 
       redraw: function() {
         this.async(function() {
-          this.timeline.draw(this.timelineData, this.timelineOpts);
+          this.rebuildDates();
+          console.log(this.events);
+          this.timeline.draw(this.events, this.timelineOpts);
+        });
+      },
+
+      rebuildDates: function() {
+        this.events.forEach(function(e) {
+          if('start' in e && !(e.start instanceof Date)) {
+            e.start = new Date(Date.parse(e.start));
+          }
+          if('end' in e && !(e.end instanceof Date)) {
+            e.end = Date.parse(e.end);
+          }
+        });
+      },
+
+      addEvent: function() {
+        this.events.push({
+          start: new Date(),
+          end: null,
+          content: ''
         });
       }
 

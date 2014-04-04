@@ -10,10 +10,16 @@
     <link rel="import" href="widgets/widget-timeline/widget-timeline.html">
   </head>
   <body unresolved>
+
     <snap-container id="widgets-container" layout="horizontal">
       <widget-text id="widget-1"></widget-text>
-      <widget-timeline></widget-timeline>
+      <snap-container layout="vertical">
+        <widget-timeline></widget-timeline>
+        <widget-text></widget-text>
+        <widget-text></widget-text>
+      </snap-container>
     </snap-container>
+
     <script type="text/javascript">
       window.addEventListener('WebComponentsReady', function(e) {
         var widget = document.getElementById('widget-1');

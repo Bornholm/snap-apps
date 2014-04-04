@@ -1,4 +1,5 @@
 <link rel="import" href="../../bower_components/polymer/polymer.html">
+<link rel="import" href="../snap-widget/snap-widget.html">
 <polymer-element name="snap-container" attributes="layout">
   <template>
     <style>
@@ -7,53 +8,72 @@
         display: block;
       }
 
-      :host > * {
+      :host #content {
+        overflow: auto;
+      }
+
+      :host #content > * {
         -moz-box-sizing: border-box;
         -webkit-box-sizing: border-box;
         box-sizing: border-box;
       }
 
-      :host[layout="horizontal"] > * {
+      :host[layout="horizontal"] #content > * {
         display: block;
-        height: 100%;
         float: left;
       }
 
-      :host[layout="vertical"] > * {
+      :host[layout="vertical"] #content > * {
         display: block;
         width: 100%;
       }
 
     </style>
-    <content></content>
+    <snap-widget name="Container">
+      <div id="content" class="view">
+        <content></content>
+      </div>
+      <div class="edit">
+      </div>
+    </snap-widget>
   </template>
   <script>
-    Polymer('snap-container', {
+    (function() {
 
-      layout: 'horizontal',
+      var filter = Array.prototype.filter;
 
-      ready: function() {
-        this.async(this.applyLayout);
-      },
+      Polymer('snap-container', {
 
-      layoutChanged: function() {
-        this.async(this.applyLayout);
-      },
+        layout: 'horizontal',
 
-      applyLayout: function() {
-        var el;
-        var count = this.children.length;
-        var width = (100/count) + '%';
-        while(count--) {
-          el = this.children[count];
-          if(el.parentElement.layout === 'horizontal') {
-            el.style.width = width;
-          } else {
-            el.removeAttribute('style');
+        ready: function() {
+          this.async(this.applyLayout);
+        },
+
+        layoutChanged: function() {
+          this.async(this.applyLayout);
+        },
+
+        applyLayout: function() {
+          var self = this;
+          var nodes = this.querySelectorAll('.view > *');
+          nodes = filter.call(nodes, function(n) {
+            return n.parentElement === self;
+          });
+          var count = nodes.length;
+          var width = (100/count) + '%';
+          while(count--) {
+            el = nodes[count];
+            if(this.layout === 'horizontal') {
+              el.style.width = width;
+            } else {
+              el.removeAttribute('style');
+            }
           }
         }
-      }
 
-    });
+      });
+
+    }());
   </script>
 </polymer-element>
