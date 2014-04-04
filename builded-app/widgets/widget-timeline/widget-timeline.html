@@ -6,36 +6,44 @@
     <link rel="stylesheet" type="text/css" href="vendor/timeline-2.6.1/timeline-theme.css">
     <snap-widget name="Timeline">
       <div class="edit">
+        <table>
+          <thead>
+            <tr>
+              <th>Start</th>
+              <th>Content</th>
+              <th>End <i>(optionnal)</i></th>
+            </tr>
+          </thead>
+          <tbody>
+            <template repeat="{{e in events}}">
+              <tr>
+                <td><input type="date" value="{{e._start}}" /></td>
+                <td><textarea value="{{e.content}}"></textarea></td>
+                <td><input type="date" value="{{e._end}}" min="{{e._start}}" disabled?="{{!e._start}}" /></td>
+              </tr>
+            </template>
+          </tbody>
+        </table>
         <button on-click="{{addEvent}}">Add event</button>
-        <ul>
-          <template repeat="{{e in events}}">
-            <li>
-              <label>Start <input type="date" value="{{e.start}}" /></label><br />
-              <label>End <input type="date" value="{{e.end}}" /></label><br />
-              <label>Content <textarea value="{{e.content}}"></textarea></label><br />
-            </li>
-          </template>
-        </ul>
       </div>
       <div class="view">
         <div id="timeline"></div>
       </div>
     </snap-widget>
   </template>
-  <script type="text/javascript" src="vendor/timeline-2.6.1/timeline-min.js"></script>
+  <script type="text/javascript" src="vendor/timeline-2.6.1/timeline.js"></script>
   <script type="text/javascript" src="vendor/timeline-2.6.1/timeline-locales.js"></script>
   <script>
     Polymer('widget-timeline', {
 
-      timelineOpts: {
-        height: '300px',
-        width: '100%',
-        style: 'box',
-        locale: 'fr'
-      },
-
       ready: function() {
         this.events = [];
+        this.timelineOpts = {
+          height: '300px',
+          width: '100%',
+          style: 'box',
+          locale: 'fr'
+        };
         this.timeline = new links.Timeline(this.$.timeline);
         this.redraw();
         this.addEventListener('showView', this.redraw.bind(this));
@@ -44,28 +52,31 @@
       redraw: function() {
         this.async(function() {
           this.rebuildDates();
-          console.log(this.events);
           this.timeline.draw(this.events, this.timelineOpts);
+          this.timeline.setVisibleChartRangeAuto();
         });
       },
 
       rebuildDates: function() {
         this.events.forEach(function(e) {
-          if('start' in e && !(e.start instanceof Date)) {
-            e.start = new Date(Date.parse(e.start));
-          }
-          if('end' in e && !(e.end instanceof Date)) {
-            e.end = Date.parse(e.end);
-          }
+          e.start = e._start ? new Date(e._start.replace(/-/g, "/")) : null;
+          e.end = e._end ? new Date(e._end.replace(/-/g, "/")) : null;
         });
       },
 
       addEvent: function() {
         this.events.push({
-          start: new Date(),
-          end: null,
+          _start: null,
+          _end: null,
           content: ''
         });
+      },
+
+      exports: function() {
+        return {
+          events: this.events,
+          timelineOpts: this.timelineOpts
+        };
       }
 
     });

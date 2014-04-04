@@ -44,6 +44,7 @@
 
       Polymer('snap-container', {
 
+        gutter: 1,
         layout: 'horizontal',
 
         ready: function() {
@@ -61,13 +62,18 @@
             return n.parentElement === self;
           });
           var count = nodes.length;
-          var width = (100/count) + '%';
+          var percent = 100-((count-1)*this.gutter);
+          var width = (percent/count) + '%';
           while(count--) {
             el = nodes[count];
             if(this.layout === 'horizontal') {
               el.style.width = width;
+              if(count !== nodes.length-1) {
+                el.style.marginRight = this.gutter + '%';
+              }
             } else {
               el.removeAttribute('style');
+              el.style.marginBottom = this.gutter + '%';
             }
           }
         }

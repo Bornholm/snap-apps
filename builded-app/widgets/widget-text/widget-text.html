@@ -4,13 +4,31 @@
       :host #textContainer {
         overflow-y: auto;
       }
+      :host .edit textarea {
+        display: block;
+        width: 100%;
+      }
     </style>
     <snap-widget name="Text">
       <div class="edit">
-        <label>Content</label>
-        <textarea value="{{text}}"></textarea>
+        <textarea value="{{text}}" placeholder="Enter your text here..."></textarea>
+        <h3>Markdown Syntax</h3>
+        <div>
+<b>Headings</b>
+<pre>
+# Main header
+## Secondary header
+### etc
+</pre>
+<b>Unordered List</b>
+<pre>
+- First item
+- Second item
+- etc
+</pre>
+        </div>
       </div>
-      <div id="textContainer" class="view"></div>
+      <div id="text" class="view"></div>
     </snap-widget>
   </template>
   <script type="text/javascript" src="vendor/marked.js"></script>
@@ -20,7 +38,7 @@
       text: '',
 
       textChanged: function() {
-        this.$.textContainer.innerHTML = marked(this.text);
+        this.$.text.innerHTML = marked(this.text);
       },
 
       optionsChanged: function(oldOpts, newOpts) {
@@ -29,8 +47,10 @@
         }
       },
 
-      save: function() {
-
+      exports: function() {
+        return {
+          text: this.text
+        };
       }
 
     });
