@@ -34,6 +34,17 @@
         <content></content>
       </div>
       <div class="edit">
+        <div>
+          <label>Layout</label>
+          <select value="{{layout}}">
+            <option value="horizontal">Horizontal</option>
+            <option value="vertical">Vertical</option>
+          </select>
+        </div>
+        <div>
+          <label>Gutter</label>
+          <input type="number" value="{{gutter}}" min="0" max="99">%
+        </div>
       </div>
     </snap-widget>
   </template>
@@ -52,6 +63,10 @@
         },
 
         layoutChanged: function() {
+          this.async(this.applyLayout);
+        },
+
+        gutterChanged: function() {
           this.async(this.applyLayout);
         },
 
@@ -75,6 +90,13 @@
               el.removeAttribute('style');
               el.style.marginBottom = this.gutter + '%';
             }
+          }
+        },
+
+        exports: function() {
+          return {
+            gutter: this.gutter,
+            layout: this.layout
           }
         }
 
