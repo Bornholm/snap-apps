@@ -52,11 +52,12 @@
     (function() {
 
       var filter = Array.prototype.filter;
+      var reduce = Array.prototype.reduce;
 
       Polymer('snap-container', {
 
         gutter: 1,
-        layout: 'horizontal',
+        layout: 'vertical',
 
         ready: function() {
           this.async(this.applyLayout);
@@ -94,10 +95,20 @@
         },
 
         exports: function() {
-          return {
+          var options = {
             gutter: this.gutter,
             layout: this.layout
-          }
+          };
+          options.children = reduce.call(this.children, function(arr, el) {
+            if(typeof el.exports === 'function') {
+              arr.push({
+                type: el.tagName,
+                options: el.exports()
+              });
+            }
+            return arr;
+          }, []);
+          return options;
         }
 
       });

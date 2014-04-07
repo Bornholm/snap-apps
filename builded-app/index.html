@@ -11,7 +11,8 @@
   </head>
   <body unresolved>
     <a href="#" onclick="toggleMode()">Toggle edition mode</a>
-    <snap-container id="widgets-container" layout="horizontal">
+
+    <snap-container id="widgetsContainer" layout="horizontal">
       <widget-text id="widget-1"></widget-text>
       <snap-container layout="vertical">
         <widget-timeline></widget-timeline>
@@ -32,10 +33,12 @@
       }
 
       window.addEventListener('WebComponentsReady', function(e) {
-        var widget = document.getElementById('widget-1');
-        widget.options = {
-          text: "##Hello World !"
+        var container = document.getElementById('widgetsContainer');
+        var exports = {
+          type: container.tagName,
+          options: container.exports()
         };
+        console.log(exports);
       });
 
     </script>
