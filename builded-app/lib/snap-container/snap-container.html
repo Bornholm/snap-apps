@@ -18,18 +18,18 @@
         box-sizing: border-box;
       }
 
-      :host[layout="horizontal"] #content > * {
+      :host[layout="horizontal"] > snap-widget > #panels > #viewPane > #content > * {
         display: block;
         float: left;
       }
 
-      :host[layout="vertical"] #content > * {
+      :host[layout="vertical"] > snap-widget > #panels > #viewPane > #content > * {
         display: block;
         width: 100%;
       }
 
     </style>
-    <snap-widget name="Container">
+    <snap-widget id="widget" name="Container">
       <div id="content" class="view">
         <content></content>
       </div>
@@ -60,8 +60,9 @@
         layout: 'vertical',
 
         ready: function() {
-          this.async(this.applyLayout);
-          this.addEventListener("DOMNodeInserted", this.applyLayout.bind(this), false);
+          this.watchMutations();
+          this.applyLayout = this.debounce(this.applyLayout, 250);
+          this.applyLayout();
         },
 
         optionsChanged: function(oldOpts, newOpts) {
@@ -72,18 +73,20 @@
             if('layout' in newOpts) {
               this.layout = newOpts.layout;
             }
+            this.applyLayout();
           }
         },
 
         layoutChanged: function() {
-          this.async(this.applyLayout);
+          this.applyLayout();
         },
 
         gutterChanged: function() {
-          this.async(this.applyLayout);
+          this.applyLayout();
         },
 
         applyLayout: function() {
+          console.log('layout');
           var self = this;
           var nodes = this.querySelectorAll('.view > *');
           nodes = filter.call(nodes, function(n) {
@@ -134,6 +137,32 @@
             return arr;
           }, []);
           return tree;
+        },
+
+        watchMutations: function() {
+          var self = this;
+          // create an observer instance
+          var observer = new MutationObserver(self.debounce(self.applyLayout, 250));
+          // configuration of the observer:
+          var config = { childList: true };
+          // pass in the target node, as well as the observer options
+          observer.observe(this, config);
+        },
+
+        debounce: function(func, wait, immediate) {
+          var self = this;
+          var timeout;
+          return function() {
+            var args = arguments;
+            var later = function() {
+              timeout = null;
+              if (!immediate) func.apply(self, args);
+            };
+            var callNow = immediate && !timeout;
+            clearTimeout(timeout);
+            timeout = setTimeout(later, wait);
+            if (callNow) func.apply(self, args);
+          };
         }
 
       });
