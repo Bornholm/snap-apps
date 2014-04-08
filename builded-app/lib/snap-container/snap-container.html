@@ -61,6 +61,18 @@
 
         ready: function() {
           this.async(this.applyLayout);
+          this.addEventListener("DOMNodeInserted", this.applyLayout.bind(this), false);
+        },
+
+        optionsChanged: function(oldOpts, newOpts) {
+          if(newOpts) {
+            if('gutter' in newOpts) {
+              this.gutter = newOpts.gutter;
+            }
+            if('layout' in newOpts) {
+              this.layout = newOpts.layout;
+            }
+          }
         },
 
         layoutChanged: function() {
@@ -99,16 +111,29 @@
             gutter: this.gutter,
             layout: this.layout
           };
-          options.children = reduce.call(this.children, function(arr, el) {
-            if(typeof el.exports === 'function') {
-              arr.push({
+          return options;
+        },
+
+        getWidgetsTree: function() {
+          var tree = {};
+          tree.type = this.tagName;
+          tree.options = this.exports();
+          tree.children = reduce.call(this.children, function(arr, el) {
+            var exports;
+            if(typeof el.getWidgetsTree === 'function') {
+              exports = el.getWidgetsTree();
+            } else if(typeof el.exports === 'function') {
+              exports = {
                 type: el.tagName,
-                options: el.exports()
-              });
+                options: el.exports(),
+              };
+            }
+            if(exports) {
+              arr.push(exports);
             }
             return arr;
           }, []);
-          return options;
+          return tree;
         }
 
       });

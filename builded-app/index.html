@@ -12,14 +12,17 @@
   <body unresolved>
     <a href="#" onclick="toggleMode()">Toggle edition mode</a>
 
-    <snap-container id="widgetsContainer" layout="horizontal">
+    <div id="widgets-container">
+    </div>
+
+    <!--<snap-container id="widgetsContainer" layout="horizontal">
       <widget-text id="widget-1"></widget-text>
       <snap-container layout="vertical">
         <widget-timeline></widget-timeline>
         <widget-text></widget-text>
         <widget-text></widget-text>
       </snap-container>
-    </snap-container>
+    </snap-container>-->
 
     <script type="text/javascript">
 
@@ -32,14 +35,69 @@
         }
       }
 
+      function buildWidget(node) {
+        var el = document.createElement(node.type);
+        el.options = node.options;
+        if(Array.isArray(node.children)) {
+          node.children.forEach(function(childNode) {
+            var childEl = buildWidget(childNode);
+            el.appendChild(childEl);
+          });
+        }
+        return el;
+      }
+
       window.addEventListener('WebComponentsReady', function(e) {
-        var container = document.getElementById('widgetsContainer');
-        var exports = {
-          type: container.tagName,
-          options: container.exports()
+
+        var widgets = {
+          "type": "SNAP-CONTAINER",
+          "options": {
+            "gutter": 1,
+            "layout": "horizontal"
+          },
+          "children": [
+            {
+              "type": "WIDGET-TEXT",
+              "options": {
+                "text": ""
+              }
+            },
+            {
+              "type": "SNAP-CONTAINER",
+              "options": {
+                "gutter": 1,
+                "layout": "vertical"
+              },
+              "children": [
+                {
+                  "type": "WIDGET-TEXT",
+                  "options": {
+                    "text": ""
+                  }
+                },
+                {
+                  "type": "WIDGET-TEXT",
+                  "options": {
+                    "text": ""
+                  }
+                },
+                {
+                  "type": "WIDGET-TIMELINE",
+                  "options": {
+                    
+                  }
+                }
+              ]
+            }
+          ]
         };
-        console.log(exports);
+
+        var container = document.getElementById('widgets-container');
+        container.appendChild(buildWidget(widgets));
+
       });
+
+
 
     </script>
   </body>
