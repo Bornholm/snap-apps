@@ -2,27 +2,48 @@
   <head>
     <script src="bower_components/platform/platform.js"></script>
     <link rel="stylesheet" type="text/css" href="style.css">
-    <!-- Lib elements -->
-    <link rel="import" href="lib/snap-container/snap-container.html">
-    <link rel="import" href="lib/snap-widget/snap-widget.html">
+    <link rel="stylesheet" type="text/css" href="app-template/style.css">
+    <!-- Components -->
+    <link rel="import" href="components/snap-container/snap-container.html">
+    <link rel="import" href="components/snap-widget/snap-widget.html">
     <!-- Widgets -->
     <link rel="import" href="widgets/widget-text/widget-text.html">
     <link rel="import" href="widgets/widget-timeline/widget-timeline.html">
   </head>
   <body unresolved>
-    <a href="#" onclick="toggleMode()">Toggle edition mode</a>
+
+
+    <div id="menu" class="block">
+    </div>
+
+    <div id="workspace" class="block">
+      <snap-container></snap-container>
+    </div>
+
+    <div id="widgets" class="block">
+      <h3>Containers</h3>
+      <ul class="widgets-list">
+        <li class="widget" draggable="true" data-widget-type="SNAP-CONTAINER">
+          Basic container
+        </li>
+      </ul>
+      <h3>Widgets</h3>
+      <ul class="widgets-list">
+        <li class="widget" draggable="true" data-widget-type="WIDGET-TEXT">
+          Text
+        </li>
+        <li class="widget" draggable="true" data-widget-type="WIDGET-TIMELINE">
+          Timeline
+        </li>
+      </ul>
+    </div>
+
+    <script type="text/javascript" src="scripts/app.js"></script>
+
+    <!--<a href="#" onclick="toggleMode()">Toggle edition mode</a>
 
     <div id="widgets-container">
     </div>
-
-    <!--<snap-container id="widgetsContainer" layout="horizontal">
-      <widget-text id="widget-1"></widget-text>
-      <snap-container layout="vertical">
-        <widget-timeline></widget-timeline>
-        <widget-text></widget-text>
-        <widget-text></widget-text>
-      </snap-container>
-    </snap-container>-->
 
     <script type="text/javascript">
 
@@ -98,7 +119,7 @@
 
 
 
-    </script>
+    </script>-->
   </body>
   
 </html>

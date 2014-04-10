@@ -1,0 +1,5 @@
+
+/* Temporary, waiting for :ancestor() proper support in Polymer */
+snap-widget[view-only] > #tabs, [view-only] snap-widget > #tabs {
+  display: none;
+}
