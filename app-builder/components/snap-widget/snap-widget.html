@@ -1,11 +1,15 @@
 <link rel="import" href="../../bower_components/polymer/polymer.html">
-<polymer-element name="snap-widget" attributes="options name">
+<polymer-element name="snap-widget" attributes="options name removable">
   <template>
     <style>
 
       :host {
         display: block;
         width: 100%;
+        -moz-box-sizing: border-box;
+        -webkit-box-sizing: border-box;
+        box-sizing: border-box;
+        overflow: hidden;
       }
 
       :host #tabs {
@@ -18,27 +22,27 @@
       }
 
       :host #panels {
-        background-color: rgba(255, 255, 255, 0.3);
-        border: 2px solid rgba(171, 210, 223, 0.3);
-        min-height: 50px;
-        overflow: auto;
-        padding: 10px;
+        top: 25px;
       }
 
       :host .tab {
         cursor: pointer;
         display: inline-block;
         padding: 0 5px;
-        background-color: rgba(171, 210, 223, 0.3);
-        opacity: 0.4;
       }
 
       :host .tab.selected {
         opacity: 1;
       }
-      
-      :host #tabs li {
-        display: inline-block;
+
+      :host > #tabs > #removeButton {
+        float: right;
+        margin-right: 5px;
+        cursor: pointer;
+      }
+
+      :ancestor([removable="false"]) > #tabs > #removeButton {
+        display: none;
       }
 
       :host([view-only]) #tabs, :ancestor([view-only]) #tabs {
@@ -50,6 +54,7 @@
     <div id="tabs">
       <b class="widgetName">{{name}}</b>
       <a id="viewTab" class="tab" on-click="{{showViewPane}}">View</a><a id="editTab" class="tab" on-click="{{showEditPane}}">Edit</a>
+      <a id="removeButton" on-click="{{dispatchRemoveClick}}">X</a>
     </div>
 
     <div id="panels">
@@ -65,6 +70,7 @@
   <script>
     Polymer('snap-widget', {
 
+      removable: true,
       name: 'Widget',
 
       ready: function() {
@@ -85,6 +91,12 @@
         this.$.editTab.classList.remove('selected');
         this.$.viewTab.classList.add('selected');
         this.fire('showView');
+      },
+
+      dispatchRemoveClick: function() {
+        if(this.removable) {
+          this.fire('removeclick');
+        }
       }
 
 

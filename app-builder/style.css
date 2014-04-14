@@ -3,17 +3,22 @@ html, body {
   color: #666;
   padding: 0;
   margin: 0;
+  height: 100%;
+}
+
+#container {
+  float: left;
+  width: 100%;
 }
 
 #menu {
-  left: 0;
+  float: left;
   width: 250px;
   border-right: 1px solid #ccc;
 }
 
 #widgets {
-  display: block;
-  right: 0;
+  float: right;
   width: 110px;
   border-left: 1px solid #ccc;
   padding: 5px;
@@ -40,15 +45,38 @@ html, body {
 }
 
 #workspace {
-  right: 110px;
-  left: 250px;
-  padding: 10px;
+  overflow: auto;
 }
 
 .block {
-  position: absolute;
+  display: block;
   height: 100%;
   -moz-box-sizing: border-box;
   -webkit-box-sizing: border-box;
   box-sizing: border-box;
+}
+
+
+snap-container {
+  border: 2px dashed #aaa;
+}
+
+.view > * {
+  -webkit-transition: all 250ms linear;
+  -moz-transition: all 250ms linear;
+  -ms-transition: all 250ms linear;
+  -o-transition: all 250ms linear;
+  transition: all 250ms linear;
+}
+
+snap-widget {
+  background-color: #eee;
+}
+
+snap-container > snap-widget {
+  background-color: #fff;
+}
+
+snap-widget #panels {
+  padding: 5px;
 }

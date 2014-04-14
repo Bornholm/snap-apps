@@ -1,13 +1,20 @@
 <polymer-element name="widget-text" attributes="options">
   <template>
     <style>
+
       :host #textContainer {
         overflow-y: auto;
       }
+
       :host .edit textarea {
         display: block;
         width: 100%;
       }
+
+      :host > snap-widget {
+        min-height: 250px;
+      }
+
     </style>
     <snap-widget name="Text">
       <div class="edit">

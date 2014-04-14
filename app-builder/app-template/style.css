@@ -1,5 +1,15 @@
 
 /* Temporary, waiting for :ancestor() proper support in Polymer */
-snap-widget[view-only] > #tabs, [view-only] snap-widget > #tabs {
+snap-widget[view-only] > #tabs,
+*[view-only] snap-widget > #tabs {
+  display: none;
+}
+
+*[view-only] snap-container, snap-container[view-only] {
+  border: none;
+}
+
+snap-widget[removable="false"] > #tabs > #removeButton,
+*[removable="false"] > snap-widget > #tabs > #removeButton {
   display: none;
 }

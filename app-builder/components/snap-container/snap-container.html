@@ -8,8 +8,14 @@
         display: block;
       }
 
-      :host #content {
-        overflow: auto;
+      :host > snap-widget > #panels > #viewPane > #content > * {
+        display: inline-block;
+        vertical-align: text-top;
+      }
+
+      :host > snap-widget > #panels > #viewPane > #content > #placeholder {
+        text-align: center;
+        display: block;
       }
 
       :host #content > * {
@@ -19,18 +25,18 @@
       }
 
       :host[layout="horizontal"] > snap-widget > #panels > #viewPane > #content > * {
-        display: block;
-        float: left;
+        display: inline-block;
+        vertical-align: text-top;
       }
 
       :host[layout="vertical"] > snap-widget > #panels > #viewPane > #content > * {
-        display: block;
         width: 100%;
       }
 
     </style>
     <snap-widget id="widget" name="Container">
       <div id="content" class="view">
+        <h3 id="placeholder">Add widgets here</h3>
         <content></content>
       </div>
       <div class="edit">
@@ -57,7 +63,7 @@
       Polymer('snap-container', {
 
         gutter: 1,
-        layout: 'vertical',
+        layout: 'horizontal',
 
         ready: function() {
           this.watchMutations();
@@ -86,7 +92,6 @@
         },
 
         applyLayout: function() {
-          console.log('layout');
           var self = this;
           var nodes = this.querySelectorAll('.view > *');
           nodes = filter.call(nodes, function(n) {
@@ -101,10 +106,16 @@
               el.style.width = width;
               if(count !== nodes.length-1) {
                 el.style.marginRight = this.gutter + '%';
+              } else {
+                el.style.marginRight = 0;
               }
             } else {
               el.removeAttribute('style');
-              el.style.marginBottom = this.gutter + '%';
+              if(count !== nodes.length-1) {
+                el.style.marginBottom = this.gutter + '%';
+              } else {
+                el.style.marginBottom = 0;
+              }
             }
           }
         },
@@ -139,10 +150,16 @@
           return tree;
         },
 
+        togglePlaceholderAndUpdate: function() {
+          var count = this.children.length;
+          this.$.placeholder.style.display = count > 0 ? 'none' : 'block';
+          this.applyLayout();
+        },
+
         watchMutations: function() {
           var self = this;
           // create an observer instance
-          var observer = new MutationObserver(self.debounce(self.applyLayout, 250));
+          var observer = new MutationObserver(this.togglePlaceholderAndUpdate.bind(this));
           // configuration of the observer:
           var config = { childList: true };
           // pass in the target node, as well as the observer options
