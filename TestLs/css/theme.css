@@ -1,0 +1,9 @@
+.photos{
+    width: 50px;
+    height: 50px;
+    background-size: contain;
+}
+
+.files{
+    list-style: none;
+}

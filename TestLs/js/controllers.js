@@ -1,18 +1,16 @@
-var  testLs = angular.module('testLs', []);
+var  testLs = angular.module('TestLs', []);
  
-testLs.controller('PhoneListCtrl', function ($scope) {
-    $scope.files = [];
-    
-    // Get Snap sandbox
-    Snap.ready(function(err, sandbox) {
+testLs.controller('imageList', function ($scope, Snap) {
+    $scope.files = []
+    var images_root = "./img"
 
-    // Expose Snap sandbox as an angular module 
-    TestLs.factory('Snap', function() {
-      return sandbox;
+    Snap.dir.lsImages(images_root, function(err, files){
+        var result = arguments[1]; 
+        result.forEach(function(entry) {
+            $scope.$apply(function(){
+                var obj = {'background-image': 'url("'+ images_root + '/' + entry + '")'}
+                $scope.files.push(obj)
+            });
+        });
     });
-
-    // Bootstrap application
-    angular.bootstrap(document, ['TestLs']);
-
-  });
 });

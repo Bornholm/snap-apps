@@ -1,18 +1,21 @@
-<html lang="en" ng-app>
+<html lang="en">
     <body>
         <script src='snap.js'></script>
         <script src="lib/angular.min.js"></script>
         <script src="js/controllers.js"></script>
-        <script>
-            Snap.ready(function(err, sandbox){
-                        console.log(sandbox)
-                        sandbox.dir.ls('./img', function(err, files) {
-                            console.log(arguments)
-                            })
-                        sandbox.dir.lsJPG('./img', function(err, files){
-                            console.log(arguments)
-                            })
-                    })
-        </script>
+        <script src='js/bsapp.js'></script>
+        <style type="text/css">   
+        <!--  
+        @import url("css/theme.css");  
+        -->  
+        </style>
+        <h2>Images</h2>
+        <div ng-controller="imageList">
+            <ul class="files">
+                <li ng-repeat="file in files">
+                <div class="photos" ng-style="file"/>
+                </li>
+            </ul>
+        </div>
     </body>
 </html>
