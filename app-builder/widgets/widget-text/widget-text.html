@@ -11,12 +11,12 @@
         width: 100%;
       }
 
-      :host > snap-widget {
+      :host > ab-widget {
         min-height: 250px;
       }
 
     </style>
-    <snap-widget name="Text">
+    <ab-widget name="Text">
       <div class="edit">
         <textarea rows="10" value="{{text}}" placeholder="Enter your text here..."></textarea>
         <h3>Markdown Syntax</h3>
@@ -36,7 +36,7 @@
         </div>
       </div>
       <div id="text" class="view"></div>
-    </snap-widget>
+    </ab-widget>
   </template>
   <script type="text/javascript" src="vendor/marked.js"></script>
   <script>

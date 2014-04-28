@@ -57,7 +57,7 @@ html, body {
 }
 
 
-snap-container {
+ab-container {
   border: 2px dashed #aaa;
 }
 
@@ -69,14 +69,14 @@ snap-container {
   transition: all 250ms linear;
 }
 
-snap-widget {
+ab-widget {
   background-color: #eee;
 }
 
-snap-container > snap-widget {
+ab-container > ab-widget {
   background-color: #fff;
 }
 
-snap-widget #panels {
+ab-widget #panels {
   padding: 5px;
 }

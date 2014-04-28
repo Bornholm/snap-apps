@@ -1,15 +1,15 @@
 
 /* Temporary, waiting for :ancestor() proper support in Polymer */
-snap-widget[view-only] > #tabs,
-*[view-only] snap-widget > #tabs {
+ab-widget[view-only] > #tabs,
+*[view-only] ab-widget > #tabs {
   display: none;
 }
 
-*[view-only] snap-container, snap-container[view-only] {
+*[view-only] ab-container, ab-container[view-only] {
   border: none;
 }
 
-snap-widget[removable="false"] > #tabs > #removeButton,
-*[removable="false"] > snap-widget > #tabs > #removeButton {
+ab-widget[removable="false"] > #tabs > #removeButton,
+*[removable="false"] > ab-widget > #tabs > #removeButton {
   display: none;
 }
