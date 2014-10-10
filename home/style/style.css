@@ -22,6 +22,9 @@ body {
   -webkit-align-items: flex-start;
   -moz-align-items: flex-start;
   align-items: flex-start;
+  -webkit-align-content: flex-start;
+  -moz-align-content: flex-start;
+  align-content: flex-start;
   height: 100%;
 }
 
