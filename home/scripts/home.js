@@ -19,13 +19,18 @@
           throw err; // TODO dispatch error
         }
         // For each app available, except home, create an icon
-        apps.forEach(function(appName) {
+        apps.forEach(function(appName, i) {
           if(appName !== 'home') {
             var appItem = createAppItem(appName);
             panel.appendChild(appItem);
+            setTimeout(makeVisible.bind(appItem), 25 + i*25);
           }
         });
       });
+
+      function makeVisible() {
+        this.classList.add('visible');
+      }
 
       function setAppIcon(appName, iconEl) {
         var marker = Date.now().toString(16);
@@ -69,7 +74,7 @@
       function createAppItem(appName) {
 
         var appItem = document.createElement('div');
-        appItem.className = 'app';
+        appItem.className = 'app transition';
 
         var appIcon = document.createElement('div');
         appIcon.className = 'icon ' + COLORS[(colorIndex++)%COLORS.length];
