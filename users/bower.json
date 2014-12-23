@@ -1,0 +1,23 @@
+{
+  "name": "users",
+  "version": "0.0.0",
+  "homepage": "https://github.com/snap-project/snap-apps",
+  "authors": [
+    "William Petit <wpetit@cadoles.com>"
+  ],
+  "description": "SNAP! user's default application",
+  "main": "index.html",
+  "license": "GPL",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "marionette": "~2.3.0",
+    "bootstrap": "~3.3.1"
+  }
+}

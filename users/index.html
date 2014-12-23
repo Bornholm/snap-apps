@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.css">
+    <link rel="stylesheet" href="css/style.css">
+  </head>
+  <body>
+
+    <div id="app-container" class="container-fluid"></div>
+
+    <script id="template-app-layout" type="text/template">
+      <div class="row" id="main"></div>
+    </script>
+
+    <script id="template-auth-main" type="text/template">
+      <div class="col-sm-4 col-sm-offset-4 col-md-4 col-md-offset-4">
+        <div class="panel panel-default">
+          <div class="panel-heading">S'authentifier</div>
+          <div class="panel-body">
+            <form role="form">
+              <div class="form-group">
+                <label for="loginInput">Identifiant</label>
+                <input type="text" class="form-control" id="loginInput" placeholder="Entrez votre identifiant">
+              </div>
+              <div class="form-group">
+                <label for="passwordInput">Mot de passe</label>
+                <input type="password" class="form-control" id="passwordInput" placeholder="Entrez votre mot de passe">
+              </div>
+            </form>
+            <div class="row">
+              <div class="col-md-12">
+                <button class="btn btn-primary pull-right">Se connecter</button>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-12">
+                <a class="pull-right" href="#/register">Pas de compte ? Enregistrez vous !</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </script>
+
+    <script src="snap.js"></script>
+
+    <script src="bower_components/underscore/underscore.js"></script>
+    <script src="bower_components/jquery/dist/jquery.js"></script>
+    <script src="bower_components/backbone/backbone.js"></script>
+    <script src="bower_components/backbone.babysitter/lib/backbone.babysitter.js"></script>
+    <script src="bower_components/backbone.wreqr/lib/backbone.wreqr.js"></script>
+    <script src="bower_components/marionette/lib/backbone.marionette.js"></script>
+
+    <script src="scripts/auth/views/main.js"></script>
+
+    <script src="scripts/layout.js"></script>
+    <script src="scripts/router.js"></script>
+    <script src="scripts/app.js"></script>
+
+  </body>
+</html>
