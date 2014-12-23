@@ -5,12 +5,12 @@ this.users =  {
     return cb();
   },
 
-  getUserInfo: function(test) {
-    this.sandbox.users.getUserInfo(function(err, user) {
+  getUser: function(test) {
+    this.sandbox.users.getUser(function(err, user) {
       test.ifError(err);
       test.ok(
         user,
-        'users.getUserInfo should return a valid user !'
+        'users.getUser should return a valid user !'
       );
       test.done();
     });
