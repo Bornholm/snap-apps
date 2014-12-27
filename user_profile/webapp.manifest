@@ -1,0 +1,11 @@
+{
+  "name": "Gestion du profil",
+  "description": Gestion des informations du profil utilisateur",
+  "default_locale": "fr",
+  "locales": {
+    "en": {
+      "name": "User's Profile",
+      "description": "User's profile administration App"
+    }
+  }
+}

@@ -4,9 +4,9 @@
 
     el: '#app-container',
 
-    template: '#template-app-layout',
+    template: '#template-layout-main',
 
-    regions: { main: '#main' }
+    regions: { content: '#content' }
 
   });
 

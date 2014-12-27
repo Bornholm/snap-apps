@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.css">
+    <link rel="stylesheet" href="css/style.css">
+  </head>
+  <body>
+
+    <div id="app-container" class="container-fluid"></div>
+
+    <script id="template-layout-main" type="text/template">
+      <div class="row" id="content"></div>
+    </script>
+
+    <script id="template-app-snaperror" type="text/template">
+      <div class="col-sm-4 col-sm-offset-4 col-md-4 col-md-offset-4">
+        <div class="alert alert-danger">
+          <p><strong>Erreur</strong> <%= errorMessage %></p>
+        </div>
+      </div>
+    </script>
+
+    <script id="template-profile-main"type="text/template">
+      <div class="col-sm-4 col-sm-offset-4 col-md-4 col-md-offset-4">
+        <div class="panel panel-default">
+          <div class="panel-heading"><strong>Mon profil</strong></div>
+          <div class="panel-body">
+            <% if(isTemporary) { %>
+            <div class="alert alert-warning">
+              <p>
+                <strong>Compte temporaire !</strong> Vous utilisez un compte temporaire.
+                Vos informations ne seront valables que pour la durée de votre session de travail
+                et ne seront pas sauvegardées !
+              </p>
+              <p>Vous avez déjà un compte ? <a id="authLink" href="#">S'authentifier.</a></p>
+              <p>Vous voulez créer un compte ? <a id="registerLink" href="#">Créer un compte.</a></p>
+            </div>
+            <% } %>
+            <form role="form">
+              <div class="form-group">
+                <label for="loginInput">UID</label>
+                <p class="form-control form-control-static form-control-disabled"><%= uid %></p>
+              </div>
+              <div class="form-group">
+                <label for="nicknameInput">Pseudonyme</label>
+                <input type="text" class="form-control" id="nicknameInput"
+                  placeholder="Entrez votre pseudonyme" value="<%= nickname %>">
+              </div>
+            </form>
+            <div class="row">
+              <div class="col-md-12">
+                <button id="saveProfileButton" class="btn btn-success pull-right">Enregistrer</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </script>
+
+    <script src="snap.js"></script>
+
+    <script src="bower_components/underscore/underscore.js"></script>
+    <script src="bower_components/jquery/dist/jquery.js"></script>
+    <script src="bower_components/backbone/backbone.js"></script>
+    <script src="bower_components/backbone.babysitter/lib/backbone.babysitter.js"></script>
+    <script src="bower_components/backbone.wreqr/lib/backbone.wreqr.js"></script>
+    <script src="bower_components/marionette/lib/backbone.marionette.js"></script>
+
+    <script src="scripts/modules/profile/views/main.js"></script>
+
+    <script src="scripts/models/user.js"></script>
+    <script src="scripts/views/snap-error.js"></script>
+
+    <script src="scripts/layout.js"></script>
+    <script src="scripts/router.js"></script>
+    <script src="scripts/app.js"></script>
+
+  </body>
+</html>
