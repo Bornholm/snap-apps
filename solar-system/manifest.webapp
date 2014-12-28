@@ -1,0 +1,9 @@
+{
+	"name": "Système solaire",
+	"description": "Visualisation du système solaire",
+	"defaut_locale": "fr",
+	"version": "v0.0.1",
+	"icons": {
+		"512": "eclipse.svg"
+	}
+}
