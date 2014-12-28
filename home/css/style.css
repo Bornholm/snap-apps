@@ -1,43 +1,50 @@
 body {
-  font-family: 'Droid Sans', sans-serif;
+  font-family: 'Droid Sans', 'Ubuntu', sans-serif;
   color: #333;
 }
 
-.panel {
-  display: none;
+#app-container {
+
+  display: -webkit-flex;
+  display: -moz-flex;
+  display: flex;
+
   -webkit-box-sizing: border-box;
   -moz-box-sizing: border-box;
   -ms-box-sizing: border-box;
   box-sizing: border-box;
+
   padding: 50px;
+
   -webkit-flex-direction: row;
   -moz-flex-direction: row;
   flex-direction: row;
+
   -webkit-flex-wrap: wrap;
   -moz-flex-wrap: wrap;
   flex-wrap: wrap;
+
   -webkit-justify-content: center;
   -moz-justify-content: center;
   justify-content: center;
+
   -webkit-align-items: flex-start;
   -moz-align-items: flex-start;
   align-items: flex-start;
+
   -webkit-align-content: flex-start;
   -moz-align-content: flex-start;
   align-content: flex-start;
+
   height: 100%;
+
 }
 
-.panel.visible {
-  display: -webkit-flex;
-  display: -moz-flex;
-  display: flex;
-}
 
 .app {
   width: 80px;
   height: 80px;
-  margin: 5px;
+  margin: 22px 0 0 0;
   text-align: center;
   cursor: pointer;
   opacity: 0;
@@ -60,27 +67,38 @@ body {
   font-size: 12px;
   width: 100%;
   margin-top: 5px;
-  font-weight: bold;
-  text-shadow: 1px 1px 0px rgba(255, 255, 255, 0.6);
-  filter: dropshadow(color=#ffffff, offx=1, offy=1);
-  text-transform: capitalize;
-  white-space: nowrap;
+  color: #fafafa;
+  text-shadow: 1px 1px 0px rgba(33, 33, 33, 0.6);
+  filter: dropshadow(color=#333, offx=1, offy=1);
   overflow: hidden;
-  -o-text-overflow: ellipsis;
-  -ms-text-overflow: ellipsis;
-  text-overflow: ellipsis;
 }
 
 .app > .icon {
   width: 64px;
   height: 64px;
   border-radius: 32px;
-  -webkit-box-shadow: 0px 0px 8px 2px rgba(33, 33, 33, 0.5);
-  box-shadow: 0px 0px 8px 2px rgba(33, 33, 33, 0.5);
+  -webkit-box-shadow: 0px 1px 3px 1px rgba(33, 33, 33, 0.2);
+  box-shadow: 0px 1px 3px 1px rgba(33, 33, 33, 0.2);
   background-size: 49px;
   background-repeat: no-repeat;
   background-position: center center;
   margin: auto;
+  position: relative;
+}
+
+.app > .icon::after {
+  position: absolute;
+  content: '';
+  width: 64px;
+  height: 64px;
+  border-radius: 32px;
+  top: 0;
+  left: 0;
+  background-image:
+    radial-gradient(ellipse at top left, rgba(255, 255, 255, 0.1) 0%, rgba(255, 255, 255, 0) 100%),
+    radial-gradient(ellipse at bottom right, rgba(33, 33, 33, 0.2) 0%, rgba(33, 33, 33, 0.1) 50%, rgba(1, 1, 1, 0) 50%, rgba(0, 0, 0, 0) 100%)
+  ;
+  box-shadow: inset 0px 0px 1px 1px rgba(255,255,255, 0.2);
 }
 
 .app:hover > .icon {
@@ -94,44 +112,17 @@ body {
 /* Colors */
 .app > .icon.rose {
   background-color: #ff4d74;
-  -webkit-box-shadow: 0 3px #e60032;
-  box-shadow: 0 3px #e60032;
-}
-
-.app:hover > .icon.rose {
-  -webkit-box-shadow: 0 2px #e60032;
-  box-shadow: 0 2px #e60032;
 }
 
 .app > .icon.canary {
   background-color: #fee830;
-  -webkit-box-shadow: 0 3px #c7b201;
-  box-shadow: 0 3px #c7b201;
 }
 
-.app:hover > .icon.canary {
-  -webkit-box-shadow: 0 2px #c7b201;
-  box-shadow: 0 2px #c7b201;
-}
 
 .app > .icon.lime {
   background-color: #86cd4b;
-  -webkit-box-shadow: 0 3px #548b27;
-  box-shadow: 0 3px #548b27;
-}
-
-.app:hover > .icon.lime {
-  -webkit-box-shadow: 0 2px #548b27;
-  box-shadow: 0 2px #548b27;
 }
 
 .app > .icon.blue {
   background-color: #039ee0;
-  -webkit-box-shadow: 0 3px #02577b;
-  box-shadow: 0 3px #02577b;
-}
-
-.app:hover > .icon.blue {
-  -webkit-box-shadow: 0 2px #02577b;
-  box-shadow: 0 2px #02577b;
 }

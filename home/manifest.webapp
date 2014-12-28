@@ -1,0 +1,11 @@
+{
+  "name": "Accueil",
+  "description": "Page d'accueil de SNAP!",
+  "default_locale": "fr",
+  "locales": {
+    "en": {
+      "name": "Home",
+      "description": "Home App"
+    }
+  }
+}

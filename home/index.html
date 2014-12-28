@@ -1,10 +1,37 @@
-<html>
+<!DOCTYPE html>
+<html lang="en">
   <head>
-    <link rel="stylesheet" type="text/css" href="style/style.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" type="text/css" href="css/style.css">
   </head>
   <body>
-    <div id="panel-1" class="panel visible"></div>
+
+    <div id="app-container"></div>
+
+    <script id="template-app-appitem" type="text/template">
+      <div class="icon <%= appColor() %>"
+        title="<%= appLabel() %> - <%= appDescription() %>"
+        style="background-image: url('<%= appIconURL() %>')">
+      </div>
+      <span class="label"
+        title="<%= appLabel() %> - <%= appDescription() %>">
+        <%= appLabel() %>
+      </span>
+    </script>
+
     <script type="text/javascript" src="snap.js"></script>
-    <script type="text/javascript" src="scripts/home.js"></script>
+
+    <script src="bower_components/underscore/underscore.js"></script>
+    <script src="bower_components/jquery/dist/jquery.js"></script>
+    <script src="bower_components/backbone/backbone.js"></script>
+    <script src="bower_components/backbone.babysitter/lib/backbone.babysitter.js"></script>
+    <script src="bower_components/backbone.wreqr/lib/backbone.wreqr.js"></script>
+    <script src="bower_components/marionette/lib/backbone.marionette.js"></script>
+
+    <script type="text/javascript" src="scripts/models/app.js"></script>
+    <script type="text/javascript" src="scripts/views/app-item.js"></script>
+    <script type="text/javascript" src="scripts/views/apps.js"></script>
+    <script type="text/javascript" src="scripts/app.js"></script>
+
   </body>
 </html>
