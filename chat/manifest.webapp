@@ -1,0 +1,14 @@
+{
+  "name": "Chat",
+  "description": "Salon de chat",
+  "default_locale": "fr",
+  "locales": {
+    "en": {
+      "name": "Chat",
+      "description": "SNAP! default chat room"
+    }
+  },
+  "icons": {
+    "512": "img/conversation.svg"
+  }
+}

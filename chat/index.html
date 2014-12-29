@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>SNAP! Chat</title>
+    <link href="css/style.css" rel="stylesheet">
+  </head>
+
+    <div id="app-container"></div>
+
+    <!-- Templates -->
+
+    <script id="template-layout-main" type="text/template">
+      <div id="main"></div>
+      <div id="aside"></div>
+      <div id="footer"></div>
+    </script>
+
+    <script id="template-app-user" type="text/template">
+
+    </script>
+
+    <script id="template-app-messageinput" type="text/template">
+      <textarea class="edit">WORK IN PROGRESS</textarea>
+    </script>
+
+    <script id="template-app-message" type="text/template">
+
+    </script>
+
+    <!-- Scripts -->
+
+    <script src="snap.js"></script>
+
+    <script src="bower_components/underscore/underscore.js"></script>
+    <script src="bower_components/jquery/dist/jquery.js"></script>
+    <script src="bower_components/backbone/backbone.js"></script>
+    <script src="bower_components/backbone.babysitter/lib/backbone.babysitter.js"></script>
+    <script src="bower_components/backbone.wreqr/lib/backbone.wreqr.js"></script>
+    <script src="bower_components/marionette/lib/backbone.marionette.js"></script>
+
+    <script src="scripts/models/message.js"></script>
+    <script src="scripts/models/user.js"></script>
+
+    <script src="scripts/views/message-input.js"></script>
+    <script src="scripts/views/message.js"></script>
+    <script src="scripts/views/user.js"></script>
+    <script src="scripts/views/messages-list.js"></script>
+    <script src="scripts/views/users-list.js"></script>
+
+    <script src="scripts/layout.js"></script>
+    <script src="scripts/router.js"></script>
+    <script src="scripts/app.js"></script>
+
+  </body>
+</html>
