@@ -6,7 +6,10 @@
   Home.channel = new Backbone.Wreqr.Channel('global');
 
   var AppsCollection = Backbone.Collection.extend({
-    model: Home.AppModel
+    model: Home.AppModel,
+    comparator: function(m) {
+      return m.get('name');
+    }
   });
 
   var appsCol = new AppsCollection();
@@ -29,19 +32,15 @@
         return console.error(err);
       }
 
-      _.each(apps, function(appName) {
-
+      var models = _.reduce(apps, function(memo, appName) {
         if(appName !== 'home') {
-          snapServices.apps.getAppManifest(appName, function(err, manifest) {
-            if(err) {
-              return console.error(err);
-            }
-            var appItem = new Home.AppModel({name: appName, manifest: manifest});
-            appsCol.add(appItem);
-          });
+          var m = new Home.AppModel({name: appName});
+          memo.push(m);
         }
+        return memo;
+      }, []);
 
-      });
+      appsCol.push(models);
 
     });
 

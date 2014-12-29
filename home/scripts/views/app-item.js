@@ -5,10 +5,21 @@
   Home.AppItemView = Backbone.Marionette.ItemView.extend({
 
     template: '#template-app-appitem',
-    className: 'app transition visible',
+    className: 'app transition',
 
     initialize: function(opts) {
       this.appColor = opts.appColor;
+    },
+
+    modelEvents: {
+      'change': 'render'
+    },
+
+    onRender: function() {
+      var $el = this.$el;
+      _.defer(function() {
+        $el.addClass('visible');
+      });
     },
 
     events: {
