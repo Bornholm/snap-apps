@@ -26,24 +26,12 @@
 
     function updateTodos(isShared, err, todos) {
       $scope.$apply(function() {
-        todos = (todos || []).map(function(todo) {
-          return todo.value;
-        });
-        $scope['todos' + (isShared ? 'Shared': '')] = todos;
+        $scope['todos' + (isShared ? 'Shared': '')] = todos || [];
       });
     }
 
-    Snap.appStorage.find(
-      {}, 
-      {start: 'todo-', end: 'todo.'},
-      updateTodos.bind(null, false)
-    );
-
-    Snap.appStorage.findShared(
-      {}, 
-      {start: 'todo-', end: 'todo.'},
-      updateTodos.bind(null, true)
-    );
+    Snap.appStorage.find(updateTodos.bind(null, false));
+    Snap.appStorage.findShared(updateTodos.bind(null, true));
 
     $scope.isOverdue = function(todo) {
       return !todo.done && moment(todo.dueDate).isBefore(today, 'day');
@@ -52,7 +40,7 @@
     $scope.newTodoHandler = function($event) {
       if($event.keyCode === 13) { // ENTER Key
         var todo = $scope.createNewTodo($scope.newTodo, $scope.isShared);
-        var todos = $scope.isShared ? $scope.sharedTodos : $scope.todos;
+        var todos = $scope.isShared ? $scope.todosShared : $scope.todos;
         todos.push(todo);
         $scope.saveTodo(todo);
         $scope.isShared = false;
@@ -88,16 +76,16 @@
   }]);
 
   // Get Snap sandbox
-  Snap.ready(function(err, sandbox) {
+  Snap.ready(function(err, services) {
 
-    // Expose Snap sandbox as an angular module 
+    // Expose Snap sandbox as an angular module
     Todos.factory('Snap', function() {
-      return sandbox;
+      return services;
     });
 
     // Bootstrap application
     angular.bootstrap(document, ['Todos']);
 
   });
-  
+
 }());

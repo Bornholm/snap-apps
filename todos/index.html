@@ -43,7 +43,7 @@
               </tr>
             </thead>
             <tbody>
-              <tr ng-repeat="todo in todos.concat(todosShared) | orderBy:predicate:reverse track by todo.key" ng-switch="todo.isShared" ng-class="{'done': todo.done, 'overdue danger': isOverdue(todo)}">
+              <tr ng-repeat="todo in todos.concat(todosShared) | orderBy:predicate:reverse" ng-switch="todo.isShared" ng-class="{'done': todo.done, 'overdue danger': isOverdue(todo)}">
                 <td class="done-col">
                   <input type="checkbox" ng-model="todo.done" ng-change="updateDoneDate(todo);saveTodo(todo)">
                 </td>
