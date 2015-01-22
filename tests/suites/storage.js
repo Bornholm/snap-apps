@@ -14,7 +14,7 @@ this.storage =  {
         test.ok(!value, 'Returned value should be falsy !');
         test.done();
       });
-      
+
     },
 
     getPutDel: function(test) {
@@ -43,7 +43,7 @@ this.storage =  {
               test.ok(!retValue, 'Key should be deleted !');
               test.done();
             });
-            
+
           });
 
         });
@@ -58,7 +58,7 @@ this.storage =  {
         test.ok(!value, 'Returned value should be falsy !');
         test.done();
       });
-      
+
     },
 
     simplePutShared: function(test) {
@@ -77,7 +77,7 @@ this.storage =  {
             JSON.stringify(retValue) == JSON.stringify(value),
             'Returned value should equal stored one !'
           );
-          
+
           test.done();
 
         });
@@ -103,7 +103,7 @@ this.storage =  {
             JSON.stringify(retValue) !== JSON.stringify(value),
             'Returned value should not equal stored one !'
           );
-          
+
           test.done();
 
         });
@@ -126,18 +126,18 @@ this.storage =  {
       }
 
       this.sandbox.appStorage.batch(testBatch, function(err) {
+
         test.ifError(err);
 
         this.sandbox.appStorage.find(
           {count: {$lt: 50}},
-          {start: 'batch-test-', end: 'batch-test;'},
           function(err, results) {
             test.ifError(err);
-            test.ok(results.length === 50, 'Find should return 50 results !')
+            test.ok(results.length === 50, 'Find should return 50 results !');
             test.done();
           }
         );
-        
+
       });
 
     }
