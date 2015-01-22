@@ -1,12 +1,18 @@
-Snap.ready(function(err, sandbox) {
+Snap.ready(function(err, services) {
 
-    sandbox.system.getServerExternalURL(function(err, urls) {
+    services.system.getServerExternalURL(function(err, urls) {
 
       if(err) {
         // TODO handle error
       }
 
       var urlEl = document.getElementById('public-url');
+
+      if(!urls[0]) {
+        urlEl.innerHTML = "Aucune adresse valide ! Êtes vous sûr d'être connecté à un réseau ?";
+        return;
+      }
+
       urlEl.innerHTML = urls[0];
 
       var qrcode = new QRCode("qrcode", {
@@ -17,7 +23,7 @@ Snap.ready(function(err, sandbox) {
           colorLight : "#ffffff",
           correctLevel : QRCode.CorrectLevel.H
       });
-      
+
     });
 
   });
